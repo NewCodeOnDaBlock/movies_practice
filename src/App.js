@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import './styles/app.scss'
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import NavBar from './components/NavBar';
+import MainSection from './components/MainSection';
 
 function App() {
+  const key = process.env.REACT_APP_API_KEY;
+
+  const UpcomingMoviesAPI = {
+    method: 'GET',
+    url: 'https://moviesdatabase.p.rapidapi.com/titles/x/upcoming',
+    headers: {
+      'X-RapidAPI-Key': 'c376bcb900mshf77be0f52e73435p16d376jsn13c201fcd1a4',
+      'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <BrowserRouter>
+      <Link to="/"></Link>
+        <Switch>
+          <Route path="/">
+            <NavBar />
+            <MainSection
+              UpcomingMoviesAPI={UpcomingMoviesAPI}
+            />
+          </Route>   
+        </Switch>
+    </BrowserRouter>
+      );
 }
 
 export default App;
